@@ -13,11 +13,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: npm install
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Choose your Python version
 
-    - name: Run tests
-      run: npm test
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Python tests
+      run: |
+        python -m unittest discover -s Backend/app/tests -p 'test_*.py'
 
     - name: Build
       run: npm run build
