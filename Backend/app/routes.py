@@ -1,6 +1,6 @@
 # app/routes.py
 from flask import Blueprint, jsonify, request
-from app.Drone.faceTrackingTello import main
+from app.Drone.faceTrackingTello import starter
 
 # Create a Blueprint instance
 api_bp = Blueprint('api', __name__)
@@ -15,7 +15,7 @@ def hello():
 def start_drone():
     if request.method == 'POST':
    
-        main()
+        starter()
         return jsonify({'message': 'Drone started successfully.'}), 200
     else:
         return jsonify({'error': 'Method not allowed.'}), 405
