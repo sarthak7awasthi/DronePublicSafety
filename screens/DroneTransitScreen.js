@@ -16,7 +16,7 @@ export default function DroneTransitScreen() {
 
     useEffect(() => {
         const timer1 = setTimeout(() => {
-            setDroneWaitInfo("Drone 03 is on its way!");
+            setDroneWaitInfo("Drone 02 is on its way!");
             setBackgroundColor('#58D68D');
             setDroneLocated(true);
         }, 4000);
@@ -44,7 +44,20 @@ export default function DroneTransitScreen() {
         const progress = (30 - timeRemaining) / 30;
     return (
         <View style={styles.container}>
-            
+
+            <View style={styles.SOSButtonContainer}>
+                <TouchableOpacity style={styles.SOSButton} onPress={() => navigation.navigate('SOS')} >
+                    <Text style={styles.SOSButtonText}>SOS</Text>
+                </TouchableOpacity>
+
+                {/* <Button
+                    style={styles.SOSButton} 
+                    title="SOS" 
+                    onPress={() => navigation.navigate('SOS')} 
+                    /> */}
+
+            </View>
+
             <View style={styles.GoogleMaps}> 
                 <TransitMapComp droneLocated={droneLocated}/>
             </View>
@@ -65,15 +78,15 @@ export default function DroneTransitScreen() {
 
             <View style={styles.droneTransitBTNContainer}>
 
-            <TouchableOpacity style={styles.call911Btn} onPress={call911}>
-                <Text>Call 911</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.call911Btn} onPress={call911}>
+                <Text style={styles.call911BtnText}>Call 911</Text>
+                </TouchableOpacity>
             
-            <Text style={{textAlign: 'center', top: 0}}>OR</Text>
+                <Text style={{textAlign: 'center'}}>OR</Text>
 
-            <TouchableOpacity style={styles.CancleDroneBtn} onPress={() => navigation.navigate('Home')} >
-                <Text>Cancel Drone</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.CancleDroneBtn} onPress={() => navigation.navigate('Home')} >
+                    <Text style={styles.CancleDroneBtnText}>Cancel Drone</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -84,6 +97,27 @@ const styles = StyleSheet.create({
         flex: 1,
         height: "100%",
         backgroundColor: '#fff',
+    },
+    SOSButtonContainer:{
+        position: 'absolute',
+        top: 80,
+        left: 10,
+        zIndex: 1,
+    },
+    SOSButton:{
+        backgroundColor:'#D93232',
+        width: 130,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        borderWidth: 5,
+        borderColor: "#E34F4F"
+    },
+    SOSButtonText:{
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     GoogleMaps: {
         width: "100%",
@@ -120,26 +154,38 @@ const styles = StyleSheet.create({
         position: "absolute",
         // backgroundColor: "green",
         width: "100%",
-        bottom: 10,
+        bottom: 40,
     },
     call911Btn:{
+        backgroundColor: "#36C73C",
         color: "#FFFFFF",
-        backgroundColor: "#3BE482",
-        fontWeight: "bold",
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 10,
+        marginHorizontal: 10,
         bottom: 10,
+    },
+    call911BtnText:{
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold",
     },
     CancleDroneBtn:{
         top: 10,
-        bottom: 10,
+        bottom: 20,
+        backgroundColor: "#D93232",
         color: "#FFFFFF",
-        backgroundColor: "#A569BD",
-        fontWeight: "bold",
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 10,
+        marginHorizontal: 10,
+    },
+    CancleDroneBtnText:{
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold",
     },
     loadingBar:{
         height: 10,

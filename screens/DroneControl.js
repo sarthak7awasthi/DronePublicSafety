@@ -34,13 +34,13 @@ export default function DroneControl({ navigation }) {
         <View style={styles.droneTransitBTNContainer}>
 
             <TouchableOpacity style={styles.call911Btn} onPress={call911}>
-            <Text>Call 911</Text>
+                <Text style={styles.call911BtnText}>Call 911</Text>
             </TouchableOpacity>
 
             <Text style={{textAlign: 'center', top: 0}}>OR</Text>
 
             <TouchableOpacity style={styles.CancleDroneBtn} onPress={() => navigation.navigate('Home')} >
-                <Text>Cancel Drone</Text>
+                <Text style={styles.CancleDroneBtnText} >Cancel Drone</Text>
             </TouchableOpacity>
         </View>
       <StatusBar style="auto" />
@@ -115,27 +115,39 @@ droneControlContainer: {
 },
 droneTransitBTNContainer:{
     position: "absolute",
-    // backgroundColor: "green",
+        // backgroundColor: "green",
     width: "100%",
-    bottom: 10,
+    bottom: 40,
 },
 call911Btn:{
+    backgroundColor: "#36C73C",
     color: "#FFFFFF",
-    backgroundColor: "#3BE482",
-    fontWeight: "bold",
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 10,
+    marginHorizontal: 10,
     bottom: 10,
+},
+call911BtnText:{
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
 },
 CancleDroneBtn:{
     top: 10,
-    bottom: 10,
+    bottom: 20,
+    backgroundColor: "#D93232",
     color: "#FFFFFF",
-    backgroundColor: "#A569BD",
-    fontWeight: "bold",
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 10,
+    marginHorizontal: 10,
+},
+CancleDroneBtnText:{
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
 },
 });

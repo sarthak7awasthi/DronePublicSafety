@@ -1,4 +1,4 @@
-import { StatusBar, ScrollView, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { StatusBar, ScrollView, TouchableOpacity, StyleSheet, Text, View, Linking } from 'react-native';
 import React, { useState } from 'react';
 
 export default function SOSMessaging({ navigation }) {
@@ -21,21 +21,31 @@ export default function SOSMessaging({ navigation }) {
     const isUser = message.sender === 'user';
     return (
       <View key={message.id} style={[styles.messageContainer, isUser ? styles.userMessage : styles.supportMessage]}>
-        <Text style={styles.messageText}>{message.text}</Text>
-        <Text style={styles.messageTime}>{message.time}</Text>
+        <View style={styles.messageTextContainer}>
+          <Text style={styles.messageText}>{message.text}</Text>
+        </View>
+        <View style={styles.messageTimeContainer}>
+          <Text style={styles.messageTime}>{message.time}</Text>
+        </View>
       </View>
     );
   };
 
+  const call911 = () => {
+    Linking.openURL('tel:911');
+};
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <ScrollView>
+      <ScrollView style={styles.messageTimeContainer}>
         {messages.map(renderMessage)}
       </ScrollView>
-      <TouchableOpacity style={styles.button} onPress={() => console.log("Calling 9-1-1")}>
-        <Text style={styles.buttonText}>Call 9-1-1</Text>
-      </TouchableOpacity>
+      <View style={styles.button911Container}>  
+        <TouchableOpacity style={styles.button911} onPress={call911}>
+          <Text style={styles.button911Text}>Call 9-1-1</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -45,6 +55,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  messagesMainContainer: {
+  },
   messageContainer: {
     padding: 20,
     margin: 10,
@@ -52,28 +64,36 @@ const styles = StyleSheet.create({
   },
   userMessage: {
     alignSelf: 'flex-start',
-    backgroundColor: '#e0f7fa',
+    backgroundColor: '#3C8AC1',
   },
   supportMessage: {
     alignSelf: 'flex-end',
-    backgroundColor: '#b2ebf2',
+    backgroundColor: '#4FC13C',
   },
   messageText: {
+    color: '#fff',
     fontSize: 16,
   },
   messageTime: {
     fontSize: 12,
     alignSelf: 'flex-end',
+    color: '#fff',
   },
-  button: {
-    padding: 20,
-    backgroundColor: '#f44336',
+  button911Container:{
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    right: 10,
+  },
+  button911: {
+    backgroundColor: "#36C73C",
+    color: "#FFFFFF",
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
     borderRadius: 10,
   },
-  buttonText: {
+  button911Text: {
     color: '#fff',
     fontSize: 20,
   },

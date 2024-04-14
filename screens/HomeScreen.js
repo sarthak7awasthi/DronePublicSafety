@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Image, Alert } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, Alert, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {useFonts} from 'expo-font';
 import GoogleMapComp from './GoogleMapComp.js';
@@ -57,12 +57,15 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.SOSButtonContainer}>
-            
-            <Button
+            <TouchableOpacity style={styles.SOSButton} onPress={() => navigation.navigate('SOS')} >
+                <Text style={styles.SOSButtonText}>SOS</Text>
+            </TouchableOpacity>
+
+            {/* <Button
                 style={styles.SOSButton} 
                 title="SOS" 
                 onPress={() => navigation.navigate('SOS')} 
-                />
+                /> */}
 
         </View>
 
@@ -80,11 +83,14 @@ export default function HomeScreen() {
         </View>
         
         <View style={styles.ReqDroneButtonContainer}>        
-            <Button 
+        <TouchableOpacity style={styles.ReqDroneButton} onPress={() =>handleRequestDrone()} >
+            <Text style={styles.ReqDroneBtnText}>Request a Drone</Text>
+        </TouchableOpacity>
+            {/* <Button 
                 style={styles.ReqDroneButton}
                 title="Request a Drone" 
                 onPress={() =>handleRequestDrone()} 
-                />
+                /> */}
         </View>
         
         <StatusBar style="auto" />
@@ -105,8 +111,19 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     SOSButton:{
-        backgroundColor:'red',
-        width: 50,
+        backgroundColor:'#D93232',
+        width: 130,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        borderWidth: 5,
+        borderColor: "#E34F4F"
+    },
+    SOSButtonText:{
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     GoogleMaps: {
         width: "100%",
@@ -131,15 +148,31 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     userNameText:{
-        color: 'blue',
+        color: '#E84F8F',
+        fontFamily: 'Poppins Medium',
+        // fontWeight: 'bold',
     },
     disclaimerContainer:{
         paddingHorizontal: 10,
+        bottom: 30,
     },
     ReqDroneButtonContainer:{
         position: 'absolute',
         bottom: 10,
         left: 10,
         right: 10,
+    },
+    ReqDroneButton:{
+        backgroundColor: "#36C73C",
+        color: "#FFFFFF",
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    ReqDroneBtnText:{
+        color: "#FFFFFF",
+        fontSize: 16,
+        fontWeight: "bold",
     },
 });
