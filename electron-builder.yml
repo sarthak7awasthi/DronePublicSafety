@@ -1,0 +1,14 @@
+appId: com.example.myapp
+productName: MyApp
+directories:
+  output: dist
+linux:
+  target: AppImage
+win:
+  target: nsis
+mac:
+  target: dmg
+android:
+  target: apk
+publish: 
+  provider: github
