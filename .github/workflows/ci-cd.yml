@@ -6,6 +6,21 @@ on:
       - main
 
 jobs:
+
+  push_frames:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install pymongo
+
+      - name: Push frames to MongoDB Atlas
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: python mongodb.py
   build:
     runs-on: ubuntu-latest
 
