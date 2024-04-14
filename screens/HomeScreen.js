@@ -35,25 +35,7 @@ export default function HomeScreen() {
                 },
                 {
                     text: "Yes",
-                    onPress: () => {
-                        fetch('http://192.168.1.223:5005/api/start', {
-                            method: 'POST',
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Failed to start drone');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log(data); 
-                            navigation.navigate('DroneTransit');
-                        })
-                        .catch(error => {
-                            console.error('Error starting drone:', error.message);
-                            
-                        });
-                    },
+                    onPress: () => navigation.navigate('DroneTransit'),
                 },
             ]
         );
