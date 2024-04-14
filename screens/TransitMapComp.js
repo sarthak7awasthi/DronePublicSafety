@@ -33,10 +33,9 @@ const droneHQLocation = [{latitude: 39.95768668867838, longitude: -75.1885797228
                         ]
 
 const droneMarkerImg = require('../assets/DroneMarker.png');
-const droneHQImg = require('../assets/DroneRadius.png');
 const userLocationImg = require('../assets/UserLocation.png');
 
-export default function GoogleMapComp() {
+export default function TransitMapComp({ droneLocated }) {
     return (
         <View style={{ flex: 1 }}>
             <MapView
@@ -65,13 +64,15 @@ export default function GoogleMapComp() {
                     title={userLocation.title}
                     image={userLocationImg}/> 
 
-                <MapViewDirections
-                    origin={INITIAL_REGION}
-                    destination={DRONE_INITIAL_REGION}
-                    apikey={GOOGLE_MAPS_APIKEY}
-                    strokeWidth={5}
-                    strokeColor='#298ACF'
-                />
+                {droneLocated && (
+                     <MapViewDirections
+                     origin={INITIAL_REGION}
+                     destination={DRONE_INITIAL_REGION}
+                     apikey={GOOGLE_MAPS_APIKEY}
+                     strokeWidth={5}
+                     strokeColor='#298ACF'
+                 />
+                )}
                 
             </MapView>
         </View>
