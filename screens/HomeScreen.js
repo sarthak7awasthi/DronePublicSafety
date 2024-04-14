@@ -36,7 +36,7 @@ export default function HomeScreen() {
                 {
                     text: "Yes",
                     onPress: () => {
-                        fetch('http://localhost:5005/api/start', {
+                        fetch('http://192.168.1.223:5005/api/start', {
                             method: 'POST',
                         })
                         .then(response => {
