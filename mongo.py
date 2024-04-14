@@ -17,8 +17,11 @@ def insert_frame(frame_path):
     # Read frame from file
     frame = cv2.imread(frame_path)
     
+    # Convert frame to list of lists
+    frame_list = frame.tolist()
+    
     # Insert frame into MongoDB Atlas
-    collection.insert_one({"frame": frame})
+    collection.insert_one({"frame": frame_list})
     print(f"Inserted frame: {frame_path}")
 
 def main():
