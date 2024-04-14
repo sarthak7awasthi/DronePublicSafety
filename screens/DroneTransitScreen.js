@@ -1,49 +1,71 @@
 import React, { useState, useEffect} from 'react';
-import { View, Text, StyleSheet, Image, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, TouchableOpacity, Linking } from 'react-native';
 import TransitMapComp from './TransitMapComp.js';
 import { useNavigation } from '@react-navigation/native';
 
 const DJITrelloImg = require('../assets/DJTrelloImg.jpg');
-
-
 
 export default function DroneTransitScreen() {
 
     const navigation = useNavigation();
 
     const [droneWaitInfo, setDroneWaitInfo] = useState("Looking for the nearest drone...");
-    const [droneTimeInfo, setDroneTimeInfo] = useState("");
     const [backgroundColor, setBackgroundColor] = useState('#F8C471');
+    const [droneLocated, setDroneLocated] = useState(false);
+    const [timeRemaining, setTimeRemaining] = useState(30);
 
     useEffect(() => {
         const timer1 = setTimeout(() => {
             setDroneWaitInfo("Drone 03 is on its way!");
-            setDroneTimeInfo("Drone ETA: 3 minutes");
             setBackgroundColor('#58D68D');
+            setDroneLocated(true);
         }, 4000);
 
-        // Clear timeout on component unmount
-        return () => clearTimeout(timer1);
+        const timer2 = setInterval(() => {
+            setTimeRemaining(prevTime => {
+                if (prevTime > 0){
+                    return prevTime - 1;
+                }
+                else{
+                    clearInterval(timer2);
+                    clearImmediate(timer1);
+                    navigation.navigate('DroneControl');
+                    return 0;
+                }
+            });
+        }, 1000);
     }, []);
 
+        // Function to open phonebook with 911 dialed in
+        const call911 = () => {
+            Linking.openURL('tel:911');
+        };
+
+        const progress = (30 - timeRemaining) / 30;
     return (
         <View style={styles.container}>
             
             <View style={styles.GoogleMaps}> 
-                <TransitMapComp/>
+                <TransitMapComp droneLocated={droneLocated}/>
             </View>
 
             <View style={styles.droneWaitContainer}>
                 <Text style={styles.droneWaitInfo}> {droneWaitInfo} </Text>
                 <Image source={DJITrelloImg} style={styles.DJITrelloImg} />
-                <Text style={styles.droneTimeInfo}> {droneTimeInfo} </Text>
-                <View style={[styles.droneTimeInfoContainer, {backgroundColor}]}>
-                    <Text>Drone Info</Text>
+
+                <View style={[styles.droneStatusBar, {backgroundColor}]}>
+                    {/* <Text style={styles.droneTimeInfoContainerText}>Drone Info</Text> */}
+
+                    <View style={styles.loadingBar}> 
+                        <View style={[styles.progressBar, {width: `${progress * 100}%`, backgroundColor: backgroundColor}]}></View>
+                    </View>
                 </View> 
+                <Text style={styles.droneTimeInfo}> The drone is around {Math.ceil(timeRemaining/5)*5} seconds away. </Text>
             </View>
 
             <View style={styles.droneTransitBTNContainer}>
-            <TouchableOpacity style={styles.call911Btn} onPress={() => navigation.navigate('SOS')}>
+
+            <TouchableOpacity style={styles.call911Btn} onPress={call911}>
                 <Text>Call 911</Text>
             </TouchableOpacity>
             
@@ -65,7 +87,7 @@ const styles = StyleSheet.create({
     },
     GoogleMaps: {
         width: "100%",
-        height: "30%",
+        height: "55%",
     },
     droneWaitContainer: {
         height: "30%",
@@ -82,13 +104,17 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     droneTimeInfo: {
-        top: 30,
+        top: 50,
         fontSize: 16,
     },
-    droneTimeInfoContainer: {
-        top: 40,
+    droneStatusBar: {
+        top: 30,
         width: "100%",
-        height: 20,
+        // height: 20,
+    },
+    droneTimeInfoContainerText:{
+        textAlign: 'center',
+        fontWeight: "bold",
     },
     droneTransitBTNContainer:{
         position: "absolute",
@@ -114,5 +140,16 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    loadingBar:{
+        height: 10,
+        backgroundColor: '#E0E0E0',
+        borderRadius: 5,
+        // marginBottom: 10,
+    },
+    progressBar: {
+        height: '100%',
+        backgroundColor: '#3BE482',
+        borderRadius: 5,
+    },
 });
