@@ -14,8 +14,8 @@ export default function App() {
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="SOS" component={SOSMessaging} />
-        <Stack.Screen name="DroneTransit" component={DroneTransitScreen} />
-        <Stack.Screen name="DroneControl" component={DroneControl} />
+        <Stack.Screen name="DroneTransit" component={DroneTransitScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="DroneControl" component={DroneControl} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
