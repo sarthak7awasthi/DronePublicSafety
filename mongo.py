@@ -3,7 +3,7 @@ import cv2
 from pymongo import MongoClient
 
 # MongoDB Atlas connection URI (replace <connection_string> with your actual MongoDB Atlas connection string)
-MONGODB_URI = "mongodb+srv://bruteforceprogrammer:G0dGs1PfUHTDLZFi@cluster0.hj0ptta.mongodb.net/?retryWrites=true&w=majority"
+
 
 # Connect to MongoDB Atlas
 client = MongoClient(MONGODB_URI)
