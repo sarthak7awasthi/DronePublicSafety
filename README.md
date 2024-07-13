@@ -4,6 +4,7 @@
 
 ## Overview
 The DJI Tello Drone App is a mobile application that enables users to request a drone for personal surveillance and safety. The app utilizes a Flask server for the backend, React Native Expo for the frontend, and integrates OpenCV and YOLOv5 for object detection and tracking.
+Detailed description is [here](https://devpost.com/software/aerial-escort).
 
 ## Features
 ### Request Drone: 
